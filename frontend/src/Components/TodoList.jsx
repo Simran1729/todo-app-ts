@@ -57,13 +57,13 @@ function TodoList() {
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
             <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
             <button onClick={addTodo}>Add a new Todo</button>
-            {todos.map((todo) => {
-                <div>
+            {todos.map((todo) => (
+                <div key={todo._id}>
                     <h3>{todo.title}</h3>
                     <p>{todo.description}</p>
                     <button onClick={() => markDone(todo._id)} >{todo.done ? 'Done' : 'Mark as Done'}</button>
                 </div>
-            })}
+            ))}
         </div>
     )
 };

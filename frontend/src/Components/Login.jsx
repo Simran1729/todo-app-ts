@@ -7,7 +7,7 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const handleLogin = async () => {
-        const response = fetch('http://localhost:3000/auth/login', {
+        const response = await fetch('http://localhost:3000/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
