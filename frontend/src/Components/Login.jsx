@@ -23,7 +23,7 @@ function Login() {
     };
 
     return (
-        <div>
+        <div style={{ justifyContent: 'center', display: 'flex', width: '100%' }}>
             <div>
                 <h2>Login</h2>
                 <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
