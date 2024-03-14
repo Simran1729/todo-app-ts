@@ -55,6 +55,7 @@ function TodoList() {
     return (
         <div>
             <div style={{ display: "flex" }}>
+                {/* need to reload the page to see the updated username */}
                 <h2>Welcome {authStateValue.username}</h2>
                 <div style={{ marginTop: 25, marginLeft: 20 }}>
                     <button onClick={() => {
