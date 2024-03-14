@@ -3,10 +3,23 @@ import express from "express";
 import { authenticateJwt, secretKey } from "../middleware/index";
 import { User } from "../db";
 const router = express.Router();
+import { z } from "zod";
 
+const signUpInput = z.object({
+    username: z.string().min(10).max(50),
+    password: z.string().min(6).max(15)
+})
 
 router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
+    const parsedInput = signUpInput.safeParse(req.body);
+    if (!parsedInput.success) {
+        return res.status(411).json({
+            error: parsedInput.error
+        })
+    }
+    const username = parsedInput.data.username;
+    const password = parsedInput.data.password;
+
     const user = await User.findOne({ username });
     if (user) {
         res.status(403).json({ message: 'User already exists' });
