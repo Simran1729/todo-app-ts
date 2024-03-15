@@ -10,6 +10,8 @@ const signUpInput = z.object({
     password: z.string().min(6).max(15)
 })
 
+type SignUpParams = z.infer<typeof signUpInput>; // we will be figure out a way to send it to the frontend
+
 router.post('/signup', async (req, res) => {
     const parsedInput = signUpInput.safeParse(req.body);
     if (!parsedInput.success) {
