@@ -3,25 +3,10 @@ import express from "express";
 import { authenticateJwt, secretKey } from "../middleware/index";
 import { User } from "../db";
 const router = express.Router();
-import { z } from "zod";
-
-const signUpInput = z.object({
-    username: z.string().min(10).max(50),
-    password: z.string().min(6).max(15)
-})
-
-type SignUpParams = z.infer<typeof signUpInput>; // we will be figure out a way to send it to the frontend
 
 router.post('/signup', async (req, res) => {
-    const parsedInput = signUpInput.safeParse(req.body);
-    if (!parsedInput.success) {
-        return res.status(411).json({
-            error: parsedInput.error
-        })
-    }
-    const username = parsedInput.data.username;
-    const password = parsedInput.data.password;
 
+    const { username, password } = req.body;
     const user = await User.findOne({ username });
     if (user) {
         res.status(403).json({ message: 'User already exists' });
